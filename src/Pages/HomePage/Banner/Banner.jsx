@@ -22,23 +22,23 @@ const Banner = () => {
         dynamicHeight={false}
     >
     
-           <div>
-            <img src={img1} alt="" className="h-[40vh] md:h-[80vh] w-full object-contain md:object-cover" />
+        <div className="h-[40vh] md:h-[80vh] w-full object-contain md:object-cover">
+            <img src={img1} alt=""  />
         </div>
-        <div>
-            <img src={img2} alt="" className="h-[40vh] md:h-[80vh] w-full object-contain md:object-cover"/>
+        <div className="h-[40vh] md:h-[80vh] w-full object-contain md:object-cover">
+            <img src={img2} alt="" />
         </div>
-        <div>
-            <img src={img3} alt="" className="h-[40vh] md:h-[80vh] w-full object-contain md:object-cover"/>
+        <div className="h-[40vh] md:h-[80vh] w-full object-contain md:object-cover">
+            <img src={img3} alt="" />
         </div>
-        <div>
-            <img src={img4} alt="" className="h-[40vh] md:h-[80vh] w-full object-contain md:object-cover"/>
+        <div className="h-[40vh] md:h-[80vh] w-full object-contain md:object-cover">
+            <img src={img4} alt="" />
         </div>
-        <div>
-            <img src={img5} alt="" className="h-[40vh] md:h-[80vh] w-full object-contain md:object-cover"/>
+        <div className="h-[40vh] md:h-[80vh] w-full object-contain md:object-cover">
+            <img src={img5} alt="" />
         </div>
-        <div>
-            <img src={img6} alt="" className="h-[40vh] md:h-[80vh] w-full object-contain md:object-cover"/>
+        <div className="h-[40vh] md:h-[80vh] w-full object-contain md:object-cover">
+            <img src={img6} alt="" />
         </div>
     
     </Carousel>
