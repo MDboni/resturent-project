@@ -11,7 +11,7 @@ import SectionTitle from '../../../Component/SectionTitle';
 
 const SwiperContent = () => {
   return (
-      <section>
+      <section className='w-5/6 mx-auto'>
         <SectionTitle 
           subTitle={'---From 11 to 10pm ---'}
           maintitle={'ORDER ONLINE'}
