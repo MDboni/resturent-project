@@ -8,7 +8,7 @@ const MenuItem = ({item}) => {
                 className="w-24 h-24 object-cover rounded-b-3xl rounded-tr-3xl"
             />
             <div className="flex-1">
-                <h2 className="font-bold text-lg">{name}</h2>
+                <h2 className="font-bold text-lg">{name}-------</h2>
                 <p className="text-sm text-gray-600">{recipe}</p>
                 <button className="btn mt-2 bg-amber-100">Order</button>
             </div>

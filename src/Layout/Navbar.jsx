@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 
 const Navbar = ({children}) => {
     
@@ -13,32 +14,18 @@ const Navbar = ({children}) => {
                 <ul
                     tabIndex={0}
                     className="menu menu-sm text-black font-semibold dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text-start">
-                    <li><a>Item 1</a></li>
-                    <li>
-                    <a>Parent</a>
-                    <ul className="p-2">
-                        <li><a>Submenu 1</a></li>
-                        <li><a>Submenu 2</a></li>
-                    </ul>
-                    </li>
-                    <li><a>Item 3</a></li>
+                    <li><Link to={`/`}>Home</Link></li>
+                    <li><Link to={`/ourmenu`}>Our Menu</Link></li>
+                    <li><Link to={`/ourshope`}>Our shope</Link></li>
                 </ul>
                 </div>
                 <a className=" text-xl font-semibold"><span className="text-yellow-500">R</span>esturant</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal  px-1">
-                <li><a>Item 1</a></li>
-                <li>
-                    <details>
-                    <summary>Parent</summary>
-                    <ul className="p-2">
-                        <li><a>Submenu 1</a></li>
-                        <li><a>Submenu 2</a></li>
-                    </ul>
-                    </details>
-                </li>
-                <li><a>Item 3</a></li>
+                <li><Link to={`/`}>Home</Link></li>
+                <li><Link to={`/ourmenu`}>Our Menu</Link></li>
+                <li><Link to={`/ourshope`}>Our shope</Link></li>
                 </ul>
             </div>
             <div className="navbar-end mr-4 lg:mr-20">

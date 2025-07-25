@@ -17,7 +17,7 @@ const Testmonial = () => {
     },[])
 
   return (
-    <div className="w-3/5 mx-auto">
+    <div className="md:w-3/5 mx-auto">
         <SectionTitle      
             subTitle='---What Our Client Sayes---'
             maintitle='TESTMONIALS'

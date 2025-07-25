@@ -15,8 +15,11 @@
     "axios": "^1.11.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-helmet-async": "^2.0.5",
+    "react-parallax-tilt": "^1.7.301",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^7.7.0",
+    "react-tabtab": "^2.0.0",
     "swiper": "^11.2.10",
     "tailwindcss": "^4.1.11"
   },
