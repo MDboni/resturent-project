@@ -19,7 +19,8 @@
     "react-parallax-tilt": "^1.7.301",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^7.7.0",
-    "react-tabtab": "^2.0.0",
+    "react-tabs": "^6.1.0",
+    "simple-parallax-js": "^6.2.1",
     "swiper": "^11.2.10",
     "tailwindcss": "^4.1.11"
   },

@@ -17,6 +17,7 @@ const CoverImg = ({img,Heading,pragraph}) => {
             </p>
             </div>
         </div>
+         
 </div>
   )
 }
