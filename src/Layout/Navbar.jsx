@@ -31,7 +31,7 @@ const Navbar = ({children}) => {
                 </ul>
             </div>
             <div className="navbar-end mr-4 lg:mr-20">
-                <a className="btn">Button</a>
+                <Link to={`/login`} className="btn">Login</Link>
             </div>
         </div>
         </div>

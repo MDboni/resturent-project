@@ -7,6 +7,7 @@ import OurMenuPage from './Pages/OurMenu/OurMenuPage.jsx'
 import {  HelmetProvider } from 'react-helmet-async';
 import OurShopePage from './Pages/OurShopePage/OurShopePage.jsx'
 import ShopPage from './Pages/ShopPage/ShopPage.jsx'
+import Login from './FormLoginSignup/Login/Login.jsx'
 
 
 createRoot(document.getElementById('root')).render(
@@ -18,6 +19,7 @@ createRoot(document.getElementById('root')).render(
           <Route path='/ourmenu' element={<OurMenuPage/>}/>
           <Route path='/ourshope' element={<OurShopePage/>}/>
           <Route path='/shop/:category' element={<ShopPage/>}/>
+          <Route path='/login' element={<Login/>}/>
         </Routes>
       </HelmetProvider>
     </BrowserRouter>
