@@ -9,6 +9,8 @@ import SectionTitle from "../../Component/SectionTitle";
 import MenuItemMap from "./MenuCommonCoberimg/MenuItemMap";
 import FavFoodHeading from "./MenuCommonCoberimg/FavFoodHeading";
 import imgo from '../../assets/menu/pizza-bg.jpg'
+import imgs from '../../assets/menu/salad-bg.jpg'
+import imgd from '../../assets/menu/soup-bg.jpg'
 import Footer from "../../Layout/Footer";
 
 
@@ -35,6 +37,10 @@ const OurMenuPage = () => {
         <FavFoodHeading/>
         <MenuCommoncober img={imgo} Heading='PIZZA'/>
         <MenuItemMap item={pizza}/>
+        <MenuCommoncober img={imgs} Heading='SAlad'/>
+        <MenuItemMap item={salad}/>
+        <MenuCommoncober img={imgd} Heading='DEINKS'/>
+        <MenuItemMap item={drinks}/>
         <Footer/>
       </Navbar>
     </>

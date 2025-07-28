@@ -17,6 +17,7 @@ const Navbar = ({children}) => {
                     <li><Link to={`/`}>Home</Link></li>
                     <li><Link to={`/ourmenu`}>Our Menu</Link></li>
                     <li><Link to={`/ourshope`}>Our shope</Link></li>
+                    <li><Link to={`/shop/Salad`}>shope</Link></li>
                 </ul>
                 </div>
                 <a className=" text-xl font-semibold"><span className="text-yellow-500">R</span>esturant</a>
@@ -26,6 +27,7 @@ const Navbar = ({children}) => {
                 <li><Link to={`/`}>Home</Link></li>
                 <li><Link to={`/ourmenu`}>Our Menu</Link></li>
                 <li><Link to={`/ourshope`}>Our shope</Link></li>
+                <li><Link to={`/shop/Salad`}>shope</Link></li>
                 </ul>
             </div>
             <div className="navbar-end mr-4 lg:mr-20">
