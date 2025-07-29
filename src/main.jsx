@@ -8,19 +8,24 @@ import {  HelmetProvider } from 'react-helmet-async';
 import OurShopePage from './Pages/OurShopePage/OurShopePage.jsx'
 import ShopPage from './Pages/ShopPage/ShopPage.jsx'
 import Login from './FormLoginSignup/Login/Login.jsx'
+import AuthProvider from './Provider/AuthProvider.jsx'
+import SignUp from './FormLoginSignup/SignUp/SignUp.jsx'
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <HelmetProvider>
-        <Routes>
-          <Route path='/' element={<HomePage/>}/>
-          <Route path='/ourmenu' element={<OurMenuPage/>}/>
-          <Route path='/ourshope' element={<OurShopePage/>}/>
-          <Route path='/shop/:category' element={<ShopPage/>}/>
-          <Route path='/login' element={<Login/>}/>
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path='/' element={<HomePage/>}/>
+            <Route path='/ourmenu' element={<OurMenuPage/>}/>
+            <Route path='/ourshope' element={<OurShopePage/>}/>
+            <Route path='/shop/:category' element={<ShopPage/>}/>
+            <Route path='/login' element={<Login/>}/>
+            <Route path='/signup' element={<SignUp/>}/>
+          </Routes>
+        </AuthProvider>
       </HelmetProvider>
     </BrowserRouter>
   </StrictMode>,
