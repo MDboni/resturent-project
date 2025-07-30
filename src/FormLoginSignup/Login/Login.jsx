@@ -1,31 +1,46 @@
 import { useEffect, useRef, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate,  validateCaptcha } from 'react-simple-captcha';
 import useAuth from '../../Hooks/useAuth';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa6";
+import { useForm } from 'react-hook-form';
 
 
 const Login = () => {
+    
     const [disabled,setDisabled] =useState(true)
     const captchaRef = useRef(null)
     const { signIn ,GoogleSignIn } = useAuth()
+    const location = useLocation()
+    const from = location.state?.from || "/";
     const navigate = useNavigate()
-    const FromHandel = e => {
-        e.preventDefault();
-        const email = e.target.email.value ;
-        const password = e.target.password.value ;
-        const result = {email,password}
-        console.log(result);    
-        
+
+    const {register, handleSubmit, watch, formState: { errors },} = useForm()
+    const onSubmit = (data) => {
+        const { email , password } = data ;
         signIn(email,password)
         .then(result => {
             console.log('user',result.user);
-            e.target.reset()
-            navigate('/')
+            navigate(from)
         })
-        .catch(error => console.log(error.message))
-
+        .catch(error => console.log(error.message))  
     }
+
+    // const FromHandel = e => {
+    //     e.preventDefault();
+    //     const email = e.target.email.value ;
+    //     const password = e.target.password.value ;
+    //     const result = {email,password}
+    //     console.log(result);    
+        
+    //     signIn(email,password)
+    //     .then(result => {
+    //         console.log('user',result.user);
+    //         e.target.reset()
+    //         navigate('/')
+    //     })
+    //     .catch(error => console.log(error.message))
+    // }
 
     const Captchahandel = () =>{
         const userCaptchaValue  = captchaRef.current.value ;
@@ -34,6 +49,7 @@ const Login = () => {
          setDisabled(false)
         }else {
           setDisabled(true)
+          alert("Captcha does not match. Please try again.");
         } 
         
     } 
@@ -54,15 +70,15 @@ const Login = () => {
                 <div className="card bg-base-100 md:w-1/2 w-full  max-w-sm shrink-0 shadow-2xl">
                 <div className="card-body">
                     <h2 className="text-3xl font-bold text-center">Login</h2>
-                    <form onSubmit={FromHandel}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <fieldset className="fieldset">   
                             <div>
                                 <label className="label">Email</label>
-                                <input type="email" name="email" className="input" placeholder="Email" />
+                                <input type="email" {...register("email")} className="input" placeholder="Email" />
                             </div>
                             <div>
                                 <label className="label">Password</label>
-                                <input type="password" name="password" className="input" placeholder="Password" />
+                                <input type="password" {...register("password")} className="input" placeholder="Password" />
                             </div>
                             <div>
                                 <label className="label">
