@@ -1,17 +1,38 @@
 import Swal from "sweetalert2";
 import useAuth from "../../../Hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 const ShopBox = ({ item }) => {
 const { user } = useAuth() ;
+const location = useLocation()
 const navigate = useNavigate()
-const { image, recipe, name , price } = item;
+const { image, recipe, name , price , _id } = item;
 const CardHandel = (food) => {
-  
-  console.log(food);
+ 
   if(user && user.email){
     // data send server
+    console.log(user.email , food);
+    const createItem = {
+      menuId : _id ,
+      email : user.email ,
+      image , name, price 
+    }
+
+    axios.post(`http://localhost:3000/user`, createItem)
+    .then( res => {
+      console.log(res.data);
+      if(res.data.insertedId){
+        Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Your Order has been saved",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      }
+    })
   }
   else{
       Swal.fire({
@@ -24,7 +45,8 @@ const CardHandel = (food) => {
       confirmButtonText: "Create Account"
     }).then((result) => {
       if (result.isConfirmed) {
-        navigate('/login')
+        navigate('/login', {state : { from: location.pathname }} )
+        
       }
     });
   }

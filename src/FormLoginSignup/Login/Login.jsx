@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { loadCaptchaEnginge, LoadCanvasTemplate,  validateCaptcha } from 'react-simple-captcha';
+import { useEffect, useRef,  } from 'react';
+import { loadCaptchaEnginge,   validateCaptcha } from 'react-simple-captcha';
 import useAuth from '../../Hooks/useAuth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa6";
@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 
 const Login = () => {
     
-    const [disabled,setDisabled] =useState(true)
+    // const [disabled,setDisabled] =useState(true)
     const captchaRef = useRef(null)
     const { signIn ,GoogleSignIn } = useAuth()
     const location = useLocation()
@@ -64,6 +64,7 @@ const Login = () => {
     useEffect(()=>{
         loadCaptchaEnginge(6); 
     },[])
+
   return (
         <div className="hero bg-base-200 w-5/6 mx-auto min-h-[90vh] mt-10 shadow-2xl">
             <div className="hero-content flex-col lg:flex-row-reverse">
@@ -88,7 +89,7 @@ const Login = () => {
                                 <button onClick={Captchahandel}  className="btn btn-outline btn-primary btn-xs w-full mt-2">Primary</button>
                             </div>
                             
-                            <button type="submit" disabled={disabled} className="btn btn-neutral btn-bg-blue mt-4 ">Sign In</button>
+                            <button type="submit" disabled={false} className="btn btn-neutral btn-bg-blue mt-4 ">Sign In</button>
                         </fieldset>
                     </form>
                     <div className='text-center items-center'>
