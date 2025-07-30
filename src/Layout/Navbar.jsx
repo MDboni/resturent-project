@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import useAuth from "../Hooks/useAuth"
+import { FaCartArrowDown } from "react-icons/fa";
 
 const Navbar = ({children}) => {
     const {user , logOut} = useAuth()
@@ -43,6 +44,9 @@ const Navbar = ({children}) => {
                 </ul>
             </div>
             <div className="navbar-end mr-4 lg:mr-20">
+                <button className="btn mr-3">
+                   <FaCartArrowDown/> <div className="badge badge-sm badge-secondary">+99</div>
+                </button>
                 {
                     user ? 
                     <>
@@ -51,7 +55,7 @@ const Navbar = ({children}) => {
                     </>
                     :
                     <>
-                      <Link  to={`/login`} className="btn">Login</Link>
+                      <Link  to={`/login`} className="btn mr-2">Login</Link>
                       <Link  to={`/signup`} className="btn">Sign Up</Link>
                     </>
                 }

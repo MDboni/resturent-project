@@ -10,6 +10,7 @@ import ShopPage from './Pages/ShopPage/ShopPage.jsx'
 import Login from './FormLoginSignup/Login/Login.jsx'
 import AuthProvider from './Provider/AuthProvider.jsx'
 import SignUp from './FormLoginSignup/SignUp/SignUp.jsx'
+import PrivateRoute from './Private/PrivateRoute.jsx'
 
 
 createRoot(document.getElementById('root')).render(

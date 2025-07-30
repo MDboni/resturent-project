@@ -17,9 +17,7 @@ const BoxMap = ({ item }) => {
         {currentItems.map((item) => (
           <ShopBox
             key={item._id}
-            img={item.image}
-            title={item.name}
-            subtitle={item.recipe}
+            item={item}
           />
         ))}
       </div>
