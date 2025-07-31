@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom"
 import useAuth from "../Hooks/useAuth"
 import { FaCartArrowDown } from "react-icons/fa";
+import useCarts from "../Hooks/useCarts";
 
 const Navbar = ({children}) => {
     const {user , logOut} = useAuth()
+    const [cart] = useCarts()
 
     const HandelLogout = () =>{
         logOut()
@@ -45,7 +47,7 @@ const Navbar = ({children}) => {
             </div>
             <div className="navbar-end mr-4 lg:mr-20">
                 <button className="btn mr-3">
-                   <FaCartArrowDown/> <div className="badge badge-sm badge-secondary">+99</div>
+                   <FaCartArrowDown/> <div className="badge badge-sm badge-secondary">+{cart.length}</div>
                 </button>
                 {
                     user ? 
