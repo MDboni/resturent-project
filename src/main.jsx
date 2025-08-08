@@ -10,11 +10,11 @@ import ShopPage from './Pages/ShopPage/ShopPage.jsx'
 import Login from './FormLoginSignup/Login/Login.jsx'
 import AuthProvider from './Provider/AuthProvider.jsx'
 import SignUp from './FormLoginSignup/SignUp/SignUp.jsx'
-import PrivateRoute from './Private/PrivateRoute.jsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import CartPage from './DashBoard/Pages/CartPage.jsx'
 import DashBoard from './DashBoard/DashBoard.jsx'
 import AddItemPage from './DashBoard/Pages/AddItemPage.jsx'
+import Allusers from './DashBoard/Allusers/Allusers.jsx'
 const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')).render(
@@ -33,8 +33,11 @@ createRoot(document.getElementById('root')).render(
 
               {/* Dashboard with nested routes */}
               <Route path='/dashboard' element={<DashBoard />}>
+                <Route index element={<CartPage />} />
                 <Route path='cart' element={<CartPage />} />
                 <Route path='additem' element={<AddItemPage />} />
+                {/* admin panel  */}
+                <Route path='allusers' element={<Allusers/>}/>
               </Route>
             </Routes>
            </AuthProvider>

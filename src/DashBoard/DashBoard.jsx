@@ -3,10 +3,12 @@ import { FaAllergies, FaShoppingCart } from "react-icons/fa";
 import { FaBookBookmark, FaContao, FaManatSign, FaMarsAndVenus, FaShapes, FaSitemap } from 'react-icons/fa6';
 import { useState } from 'react';
 import { FaBars } from 'react-icons/fa';
+import useCarts from '../Hooks/useCarts';
 
 const DashBoard = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const [ cart ] = useCarts()
+  const isAdmin = useState(true)
   return (
     <div className="flex min-h-screen">
       {/* Sidebar (Mobile + Desktop) */}
@@ -18,34 +20,43 @@ const DashBoard = () => {
         <p className='text-xl font-semibold italic' style={{ letterSpacing: '6px' }}>Resturant</p>
         
         <ul className="menu mt-10 space-y-4">
-          <li>
-            <NavLink to='cart' className="flex items-center gap-2 "><FaShoppingCart /> My Cart</NavLink>
-          </li>
-          <li>
-            <NavLink to='additem' className="flex items-center gap-2 "><FaSitemap /> Add Item</NavLink>
-          </li>
-          <li>
-            <NavLink to='/' className="flex items-center gap-2 "><FaManatSign /> Manage Item</NavLink>
-          </li>
-          <li>
-            <NavLink to='booking' className="flex items-center gap-2 "><FaBookBookmark /> Manage Booking</NavLink>
-          </li>
-          <li>
-            <NavLink to='users' className="flex items-center gap-2 "><FaAllergies /> All Users</NavLink>
-          </li>
-          <div className='divider '></div>
-          <li>
-            <NavLink to='/' className="flex items-center gap-2 "><FaAllergies /> Home</NavLink>
-          </li>
-          <li>
-            <NavLink to='users' className="flex items-center gap-2 "><FaMarsAndVenus /> Menu</NavLink>
-          </li>
-          <li>
-            <NavLink to='users' className="flex items-center gap-2 "><FaShapes /> Shope</NavLink>
-          </li>
-          <li>
-            <NavLink to='users' className="flex items-center gap-2 "><FaContao /> Contact</NavLink>
-          </li>
+
+          {
+            isAdmin ? <>
+                <li>
+                  <NavLink to='cart' className="flex items-center gap-2 "><FaShoppingCart /> My Cart-({cart.length})</NavLink>
+                </li>
+                <li>
+                  <NavLink to='additem' className="flex items-center gap-2 "><FaSitemap /> Add Item</NavLink>
+                </li>
+                <li>
+                  <NavLink to='/' className="flex items-center gap-2 "><FaManatSign /> Manage Item</NavLink>
+                </li>
+                <li>
+                  <NavLink to='booking' className="flex items-center gap-2 "><FaBookBookmark /> Manage Booking</NavLink>
+                </li>
+                <li>
+                  <NavLink to='allusers' className="flex items-center gap-2 "><FaAllergies /> All Users</NavLink>
+                </li>
+                <div className="divider"></div>
+                
+            </>
+            :<>
+                <li>
+                  <NavLink to='/' className="flex items-center gap-2 "><FaAllergies /> Home</NavLink>
+                </li>
+                <li>
+                  <NavLink to='users' className="flex items-center gap-2 "><FaMarsAndVenus /> Menu</NavLink>
+                </li>
+                <li>
+                  <NavLink to='users' className="flex items-center gap-2 "><FaShapes /> Shope</NavLink>
+                </li>
+                <li>
+                  <NavLink to='users' className="flex items-center gap-2 "><FaContao /> Contact</NavLink>
+                </li>
+            </>
+          }
+         
 
         </ul>
       </div>
