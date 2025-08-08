@@ -5,24 +5,48 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const SignUp = () => {
 
     const {register, handleSubmit,watch,formState: { errors }, } = useForm()
-    
+    const { createUser,GoogleSignIn , updateUserProfile } = useAuth()
+    const navigate = useNavigate()
+    const axiosPublic = useAxiosPublic()
+
     const onSubmit = (data) => {
         const {name, email , password } = data ;
         createUser(email , password)
         .then((result)=> {
             console.log('User created:', result.user);
-            navigate('/');
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Registration Successfully",
-                showConfirmButton: false,
-                timer: 1500
-            });
+            updateUserProfile (name)
+            .then(()=>{
+
+                console.log('Profile Updated');
+                const useInfo = {
+                name : name , 
+                email : email 
+              }
+               axiosPublic.post('/users',  useInfo)
+               .then(res => {
+                 if(res.data.insertedId){
+                       navigate('/')
+                        Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Registration Successfully",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                 }
+               })
+            
+             
+            })
+            .catch((error) => {
+                    console.error('Profile update error:', error.message);
+                });
+           
         })
         .catch((error) => {
             console.error('Signup error:', error.message);
@@ -30,8 +54,7 @@ const SignUp = () => {
     }
     
 
-    const { createUser,GoogleSignIn } = useAuth()
-    const navigate = useNavigate()
+    
 
     // const handleSubmit = e => {
     //     e.preventDefault();
@@ -49,10 +72,21 @@ const SignUp = () => {
     //     .catch(error => console.log(error.message))
     // }
 
+    const AxiosPublic = useAxiosPublic()
+
     const handleGoogleSignIn = () => {
        GoogleSignIn()
         .then(result => {
             console.log('Google user:', result.user);
+            const useInfo = {
+                email : result.user?.email,
+                name : result.user?.displayName
+            }
+            AxiosPublic.post('/users', useInfo)
+            .then(res => {
+                console.log(res.data);
+                navigate('/')   
+            })
         })
         .catch(error => console.error(error));
     }
