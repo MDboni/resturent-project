@@ -4,11 +4,12 @@ import { FaBookBookmark, FaContao, FaManatSign, FaMarsAndVenus, FaShapes, FaSite
 import { useState } from 'react';
 import { FaBars } from 'react-icons/fa';
 import useCarts from '../Hooks/useCarts';
+import useAdmin from '../Hooks/useAdmin';
 
 const DashBoard = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [ cart ] = useCarts()
-  const isAdmin = useState(true)
+  const [isAdmin] = useAdmin()
   return (
     <div className="flex min-h-screen">
       {/* Sidebar (Mobile + Desktop) */}
@@ -30,7 +31,7 @@ const DashBoard = () => {
                   <NavLink to='additem' className="flex items-center gap-2 "><FaSitemap /> Add Item</NavLink>
                 </li>
                 <li>
-                  <NavLink to='/' className="flex items-center gap-2 "><FaManatSign /> Manage Item</NavLink>
+                  <NavLink to='manageitem' className="flex items-center gap-2 "><FaManatSign /> Manage Item</NavLink>
                 </li>
                 <li>
                   <NavLink to='booking' className="flex items-center gap-2 "><FaBookBookmark /> Manage Booking</NavLink>
@@ -39,7 +40,18 @@ const DashBoard = () => {
                   <NavLink to='allusers' className="flex items-center gap-2 "><FaAllergies /> All Users</NavLink>
                 </li>
                 <div className="divider"></div>
-                
+                 <li>
+                  <NavLink to='/' className="flex items-center gap-2 "><FaAllergies /> Home</NavLink>
+                </li>
+                <li>
+                  <NavLink to='users' className="flex items-center gap-2 "><FaMarsAndVenus /> Menu</NavLink>
+                </li>
+                <li>
+                  <NavLink to='users' className="flex items-center gap-2 "><FaShapes /> Shope</NavLink>
+                </li>
+                <li>
+                  <NavLink to='users' className="flex items-center gap-2 "><FaContao /> Contact</NavLink>
+                </li>
             </>
             :<>
                 <li>

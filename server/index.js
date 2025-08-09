@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const jwt = require('jsonwebtoken');
-const cookieParser = require('cookie-parser');
 const app = express()
 const port = process.env.PORT || 3000
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
@@ -10,9 +9,19 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 app.use(express.json())
 
 
-app.use(cors());
+const allowedOrigins = ['http://localhost:5173'];
 
-app.use(cookieParser());
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
 
 
 app.get('/', (req, res) => {
@@ -41,7 +50,6 @@ async function run() {
     
     // JWT releted api 
 app.post('/jwt', async (req, res) => {
- 
   const user = req.body ;
   const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET , {
     expiresIn:'1h'
@@ -52,26 +60,54 @@ app.post('/jwt', async (req, res) => {
 // Middaleware 
 
 const verifyToken = (req,res,next) =>{
-   console.log("HEADERS:", req.headers.authorization);
 
-   const token = res.headers.authorization?.split(' ')[1] ;
+ const authHeader= req.headers.authorization;
+ console.log('Incomaing Auth Header:', authHeader);
+ if(!authHeader){
+      return res.status(401).json({ message: 'Unauthorized access: No token' });
+ }
 
-   if(!token){
-          return res.status(401).json({ message: 'Unauthorized access' });
-   }
+ const token = authHeader.split(' ')[1];
+ jwt.verify(token, process.env.ACCESS_TOKEN_SECRET , (error ,decoded)=>{
+  if(error){
+    console.error("❌ Token verification failed", error);
+      return res.status(403).json({ message: 'Forbidden access' });
+  }
+  req.decoded = decoded; 
+  next()
+ }) 
 
-   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET , (err,decoded)=>{
-     if(err){
-            return res.status(403).json({ message: 'Forbidden access' });
-     }
-     req.res = decoded ;
-     next()
-   })
 }
+
+app.get('/users/admin/:email',verifyToken , async(req,res)=>{
+  const email = req.params.email ;
+  if(email !== req.decoded.email){
+    return res.status(403).send({message:'Unauthorized'})
+  }
+  const query = {email:email} ;
+  const user = await userCollection.findOne(query) ;
+  let admin = false ;
+  if(user){
+    admin = user?.role === 'admin'
+  }
+  res.send({ admin }) ;
+})
+
+const verifyAdmin = async (req,res,next)=>{
+  const email = req.decoded.email ;
+  const query = {email:email} ;
+  const user = await userCollection.findOne(query);
+  const isAdmin = user?.role === 'admin' ;
+  if(!isAdmin){
+    return res.status(403).send({message:'forbidden access'})
+  }
+  next()
+}
+
     
 //  users releted API 
 
-    app.get('/users' , verifyToken ,async(req,res)=>{
+    app.get('/users' , verifyToken ,verifyAdmin,async(req,res)=>{
     
       const result = await userCollection.find().toArray() ;
       res.send(result)
@@ -98,7 +134,7 @@ const verifyToken = (req,res,next) =>{
       res.send(result)
     })
 
-    app.patch('/users/admin/:id', async(req,res)=>{
+    app.patch('/users/admin/:id',verifyToken,verifyAdmin, async(req,res)=>{
       const id = req.params.id ;
       const filter = {_id : new ObjectId(id)}
       const updateDoc = {
@@ -115,6 +151,20 @@ const verifyToken = (req,res,next) =>{
        const result = await menuCollection.find().toArray();
         res.send(result)
     })
+
+    app.post('/menu',async(req,res)=>{
+      const item = req.body ;
+      const result = await menuCollection.insertOne(item) ;
+      res.send(result) 
+    })
+
+    app.delete('/menu/:id',verifyToken,verifyAdmin,  async(req,res)=>{
+      const item = req.params.id ;
+      const query = {_id : new ObjectId(item)}
+      const result = await menuCollection.deleteOne(query)
+      res.send(result)
+    })
+
     app.post('/carts', async(req,res)=>{
       const gett = req.body 
       const result = await cartCollection.insertOne(gett)
@@ -128,7 +178,7 @@ const verifyToken = (req,res,next) =>{
       res.send(result)
     })
 
-    app.delete('/carts/:id',async(req,res)=>{
+    app.delete('/carts/:id',verifyToken,verifyAdmin,async(req,res)=>{
       const id = req.params.id;
       const query = { _id : new ObjectId(id)}
       const result = await cartCollection.deleteOne(query)

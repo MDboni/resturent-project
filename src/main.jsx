@@ -15,6 +15,8 @@ import CartPage from './DashBoard/Pages/CartPage.jsx'
 import DashBoard from './DashBoard/DashBoard.jsx'
 import AddItemPage from './DashBoard/Pages/AddItemPage.jsx'
 import Allusers from './DashBoard/Allusers/Allusers.jsx'
+import AdminRoute from './Private/AdminRoute.jsx'
+import ManageItem from './DashBoard/Pages/ManageItem.jsx'
 const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')).render(
@@ -35,9 +37,10 @@ createRoot(document.getElementById('root')).render(
               <Route path='/dashboard' element={<DashBoard />}>
                 <Route index element={<CartPage />} />
                 <Route path='cart' element={<CartPage />} />
-                <Route path='additem' element={<AddItemPage />} />
                 {/* admin panel  */}
-                <Route path='allusers' element={<Allusers/>}/>
+                <Route path='additem' element={<AdminRoute><AddItemPage /></AdminRoute>} />
+                <Route path='allusers' element={<AdminRoute><Allusers/></AdminRoute>}/>
+                <Route path='manageitem' element={<AdminRoute><ManageItem/></AdminRoute>}/>
               </Route>
             </Routes>
            </AuthProvider>

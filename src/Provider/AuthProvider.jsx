@@ -70,7 +70,7 @@ const AuthProvider = ({children}) => {
             setLoading(false)
         })
         return () => unsubscribe() ;
-    },[])
+    },[AxiosPublic])
 
     const authInfo  = {
             user,
