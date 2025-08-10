@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const jwt = require('jsonwebtoken');
 const app = express()
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const port = process.env.PORT || 3000
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
@@ -19,7 +20,7 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true
+  
 }));
 
 
@@ -157,10 +158,10 @@ const verifyAdmin = async (req,res,next)=>{
       const result = await menuCollection.insertOne(item) ;
       res.send(result) 
     })
-
+    
     app.delete('/menu/:id',verifyToken,verifyAdmin,  async(req,res)=>{
       const item = req.params.id ;
-      const query = {_id : new ObjectId(item)}
+      const query = { _id : new ObjectId(item)}
       const result = await menuCollection.deleteOne(query)
       res.send(result)
     })
@@ -183,6 +184,23 @@ const verifyAdmin = async (req,res,next)=>{
       const query = { _id : new ObjectId(id)}
       const result = await cartCollection.deleteOne(query)
       res.send(result)
+    })
+
+    // Payment Intent 
+
+    app.post('/create-payment-intent',async(req,res)=>{
+      const { price } = req.body ;
+      const amount = parseInt(price * 100) ;
+
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: amount ,
+        currency: 'usd',
+        payment_method_types: ['card']
+      })
+
+      res.send({
+        clientSecret: paymentIntent.client_secret
+      })
     })
 
     await client.connect();

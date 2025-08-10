@@ -55,6 +55,9 @@ const DashBoard = () => {
             </>
             :<>
                 <li>
+                  <NavLink to='cart' className="flex items-center gap-2 "><FaShoppingCart /> My Cart-({cart.length})</NavLink>
+                </li>
+                <li>
                   <NavLink to='/' className="flex items-center gap-2 "><FaAllergies /> Home</NavLink>
                 </li>
                 <li>

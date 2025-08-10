@@ -4,6 +4,7 @@ import { MdDeleteSweep } from "react-icons/md";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 
 const CartPage = () => {
@@ -28,9 +29,11 @@ const CartPage = () => {
             refetch()
           if (res.data.deletedCount > 0) {
             Swal.fire({
-              title: "Deleted!",
-              text: "Your item has been deleted.",
-              icon: "success"
+              position: "top-end",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500
             });
           }
         })
@@ -46,7 +49,17 @@ const CartPage = () => {
        <div className="flex justify-evenly">
           <h2 className="text-3xl font-bold">Total Item : {cart.length}</h2>
           <h2 className="text-3xl font-bold">Total Price : {totalPrice.toFixed(2)}$</h2>
-          <h2 className="text-xl bg-amber-500 text-white px-4 rounded-2xl py-2">Pay</h2>
+          <Link to='/dashboard/payment'>
+             {
+               ( cart.length ) ? 
+                <button className="text-xl bg-amber-500 text-white px-4 rounded-2xl py-2 cursor-pointer">Pay</button>
+              : 
+                
+                <button disabled={!cart.length} className="text-xl disabled:opacity-50 disabled:cursor-not-allowed bg-amber-500 text-white px-4 rounded-2xl py-2">Pay</button> 
+             }
+             
+          </Link>
+          
        </div>
 
 

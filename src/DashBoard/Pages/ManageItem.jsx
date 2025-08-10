@@ -7,7 +7,8 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure"
 const ManageItem = () => {
     const [menu] = useMenu()
     const AxiosSecure = useAxiosSecure()
-    const DeleteHandel = id => {
+
+    const DeleteHandel =  (id) => {
         console.log(id); 
         Swal.fire({
             title: "Are you sure?",
@@ -17,22 +18,20 @@ const ManageItem = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-            }).then((result) => {
+            }).then(async (result) => {
             if (result.isConfirmed) {
-                AxiosSecure.delete(`/menu/${id}`)
-                .then(res => {
-                    // refetch()
-                    
-                    
-                    if(res.data.deletedCount > 0){
-                         Swal.fire({
+                
+               const ress = await AxiosSecure.delete(`/menu/${id}`)
+                console.log(ress.data);
+                
+                if(ress.data.deletedCount > 0){
+                     Swal.fire({
                             title: "Deleted!",
                             text: "Your file has been deleted.",
                             icon: "success"
                         });
-                    }
-                    console.log(res.data);
-                })
+                }
+               
                
             }
         });

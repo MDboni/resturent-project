@@ -17,6 +17,7 @@ import AddItemPage from './DashBoard/Pages/AddItemPage.jsx'
 import Allusers from './DashBoard/Allusers/Allusers.jsx'
 import AdminRoute from './Private/AdminRoute.jsx'
 import ManageItem from './DashBoard/Pages/ManageItem.jsx'
+import Paymeny from './DashBoard/Payment/Paymeny.jsx'
 const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')).render(
@@ -37,6 +38,7 @@ createRoot(document.getElementById('root')).render(
               <Route path='/dashboard' element={<DashBoard />}>
                 <Route index element={<CartPage />} />
                 <Route path='cart' element={<CartPage />} />
+                <Route path='payment' element={<Paymeny />} />
                 {/* admin panel  */}
                 <Route path='additem' element={<AdminRoute><AddItemPage /></AdminRoute>} />
                 <Route path='allusers' element={<AdminRoute><Allusers/></AdminRoute>}/>
